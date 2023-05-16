@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+  
+  <body>
+        <div class="container">
+          <form action="pagina.html" method="POST">
+            <h2>Login</h2>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </body>
+      <style>
+          body {
+  background-image: url("arg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+      </style>
+
+  <script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault(); // previene que el formulario se envíe
+      var user = document.querySelector('#username').value;
+      var password = document.querySelector('#password').value;
+      if (user === 'usuario' && password === 'contraseña') {
+        // Si el usuario y la contraseña son correctos, redirige a la página deseada
+        window.location.replace('index.html');
+      } else {
+        alert('Usuario o contraseña incorrectos');
+      }
+    });
+  </script>
+  <script>
+    const modoEditBtn = document.querySelector('.modo-edit');
+const editables = document.querySelectorAll('.editable');
+
+modoEditBtn.addEventListener('click', () => {
+  document.body.classList.toggle('editando');
+  editables.forEach((editable) => {
+    editable.contentEditable = document.body.classList.contains('editando');
+  });
+});
+
+  </script>
+   <button id="save-btn">Guardar</button>
+   <script>
+     const saveBtn = document.getElementById('save-btn');
+     const editableDiv = document.getElementById('editable');
+
+     saveBtn.addEventListener('click', () => {
+       const content = editableDiv.innerHTML;
+       window.opener.postMessage({ type: 'save', content }, '*');
+       window.close();
+     });
+   </script>
+</html>
